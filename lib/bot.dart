@@ -30,7 +30,7 @@ class Bot {
   Future<void> run() async {
     print('running!');
     final cron = Cron();
-    cron.schedule(Schedule.parse('0 0 0 * * *'), dailyCron);
+    cron.schedule(Schedule.parse('0 0 0 * *'), dailyCron);
     await Future.any([
       ProcessSignal.sigint.watch().first,
       ProcessSignal.sigterm.watch().first,
