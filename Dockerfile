@@ -13,4 +13,4 @@ FROM scratch
 COPY --from=build /runtime/ /
 COPY --from=build /app/output/bundle/ /app/
 
-CMD ["/app/bin/server"]
+CMD ["/app/bin/lll_discord_bot"]
