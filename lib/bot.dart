@@ -11,6 +11,7 @@ class Bot {
   );
 
   final NyxxGateway gateway;
+  final Cron cron = Cron();
 
   late final channel = PartialTextChannel(
     id: _channel,
@@ -29,12 +30,16 @@ class Bot {
 
   Future<void> run() async {
     print('running!');
-    final cron = Cron();
     cron.schedule(Schedule.parse('0 0 * * *'), dailyCron);
     await Future.any([
       ProcessSignal.sigint.watch().first,
       ProcessSignal.sigterm.watch().first,
     ]);
+    await close();
+  }
+
+  Future<void> close() async {
+    await Future.wait([cron.close(), gateway.close()]);
   }
 
   Future<void> dailyCron() async {
@@ -47,7 +52,7 @@ class Bot {
       year -= 1;
     }
     final hachigatsu = now.difference(aug).inDays + 1;
-    channel.sendMessage(
+    await channel.sendMessage(
       MessageBuilder(content: 'おはようございます。今日は$year年8月$hachigatsu日です。'),
     );
   }
