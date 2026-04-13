@@ -31,6 +31,7 @@ class Bot {
   Future<void> run() async {
     print('running!');
     cron.schedule(Schedule.parse('0 0 * * *'), dailyCron);
+    print('Ctrl+C to close...');
     await Future.any([
       ProcessSignal.sigint.watch().first,
       ProcessSignal.sigterm.watch().first,
