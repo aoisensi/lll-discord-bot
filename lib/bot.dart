@@ -52,7 +52,11 @@ class Bot {
       aug = DateTime(year - 1, 8, 1);
       year -= 1;
     }
-    final hachigatsu = now.difference(aug).inDays + 1;
+    final hachigatsu = () {
+      final day = now.difference(aug).inDays + 1;
+      if (day == 111) return 'lll';
+      return day.toString();
+    }();
     await channel.sendMessage(
       MessageBuilder(content: 'おはようございます。今日は$year年8月$hachigatsu日です。'),
     );
