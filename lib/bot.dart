@@ -57,8 +57,12 @@ class Bot {
       if (day == 111) return 'lll';
       return day.toString();
     }();
+    final greeting = switch (hachigatsu) {
+      '1' => 'あけましておめでとうございます。',
+      _ => 'おはようございます。',
+    };
     await channel.sendMessage(
-      MessageBuilder(content: 'おはようございます。今日は$year年8月$hachigatsu日です。'),
+      MessageBuilder(content: '$greeting今日は$year年8月$hachigatsu日です。'),
     );
   }
 }
